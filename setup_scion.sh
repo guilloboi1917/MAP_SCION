@@ -38,8 +38,11 @@ echo -e "# additions to /etc/hosts\n192.168.56.11 scion01\n192.168.56.12 scion02
 echo 'Downloading SCION...'
 cd /tmp/
 sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 \
-    https://github.com/scionproto/scion/releases/download/v0.12.0/scion_0.12.0_deb_amd64.tar.gz
-tar xfz scion_0.12.0_deb_amd64.tar.gz
+    https://github.com/scionproto/scion/releases/download/v0.11.0/scion_v0.11.0_deb_amd64.tar.gz
+tar xfz scion_v0.11.0_deb_amd64.tar.gz
+# For some reason, using the newer version leads to errors when starting the services due to some malconfigured cs. and br.toml files
+#     https://github.com/scionproto/scion/releases/download/v0.12.0/scion_0.12.0_deb_amd64.tar.gz
+# tar xfz scion_0.12.0_deb_amd64.tar.gz
 
 sudo apt install ./scion*.deb
 
