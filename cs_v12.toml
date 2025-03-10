@@ -1,0 +1,29 @@
+# Sample Control Service configuration file
+# Save this file as /etc/scion/cs.toml
+[general]
+id = "cs"
+config_dir = "/etc/scion"
+# This line causes issues, not valid for v12 anymore
+# reconnect_to_dispatcher = true
+
+[beaconing]
+origination_interval = "5s"
+propagation_interval = "5s"
+
+[log.console]
+level = "info"
+
+[beacon_db]
+connection = "/var/lib/scion/control.beacon.db"
+
+[path_db]
+connection = "/var/lib/scion/control.path.db"
+
+[trust_db]
+connection = "/var/lib/scion/control.trust.db"
+
+[beaconing.policies]
+propagation = "/etc/scion/beacon_policy.yaml"
+
+[metrics]
+prometheus = "127.0.0.1:30454"

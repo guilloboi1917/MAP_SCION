@@ -11,3 +11,8 @@ To run the setup, clone this repository and run
 vagrant up
 ```
 in your console.
+
+ATTENTION:
+After setup, /etc/hosts/ needs to be modified by deleting the double alias for scion0i binding to a loopback address
+e.g. "127.0.2.1 scion01 scion01" needs to be removed
+TODO: Fix this automatic binding

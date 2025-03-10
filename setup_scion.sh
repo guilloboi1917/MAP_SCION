@@ -38,11 +38,14 @@ echo -e "# additions to /etc/hosts\n192.168.56.11 scion01\n192.168.56.12 scion02
 echo 'Downloading SCION...'
 cd /tmp/
 sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 \
-    https://github.com/scionproto/scion/releases/download/v0.11.0/scion_v0.11.0_deb_amd64.tar.gz
-tar xfz scion_v0.11.0_deb_amd64.tar.gz
+    https://github.com/scionproto/scion/releases/download/v0.12.0/scion_0.12.0_deb_amd64.tar.gz
+tar xfz scion_0.12.0_deb_amd64.tar.gz
+#     https://github.com/scionproto/scion/releases/download/v0.11.0/scion_v0.11.0_deb_amd64.tar.gz
+# tar xfz scion_v0.11.0_deb_amd64.tar.gz
+
+
 # For some reason, using the newer version leads to errors when starting the services due to some malconfigured cs. and br.toml files
-#     https://github.com/scionproto/scion/releases/download/v0.12.0/scion_0.12.0_deb_amd64.tar.gz
-# tar xfz scion_0.12.0_deb_amd64.tar.gz
+
 
 sudo apt install ./scion*.deb
 
@@ -94,9 +97,13 @@ mkdir -p /etc/scion/keys
 head -c 16 /dev/urandom | base64 - >/etc/scion/keys/master0.key
 head -c 16 /dev/urandom | base64 - >/etc/scion/keys/master1.key
 
-# Service Configuration Files
-echo 'Downloading Service Configuration Files'
-sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 https://docs.scion.org/en/latest/_downloads/86206dbd6188d9e62a19670f3926ea12/br.toml -O /etc/scion/br.toml
-sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 https://docs.scion.org/en/latest/_downloads/a336e7d8890995447b10e212eb56cd7f/cs.toml -O /etc/scion/cs.toml
+# # Service Configuration Files
+# echo 'Downloading Service Configuration Files'
+# sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 https://docs.scion.org/en/latest/_downloads/86206dbd6188d9e62a19670f3926ea12/br.toml -O /etc/scion/br.toml
+# sudo wget --tries=5 --retry-connrefused --waitretry=5 --retry-on-http-error=404,500,502,503,504 https://docs.scion.org/en/latest/_downloads/a336e7d8890995447b10e212eb56cd7f/cs.toml -O /etc/scion/cs.toml
+
+echo 'Copying Service configuration Files'
+sudo cp /vagrant/br_v12.toml /etc/scion/br.toml
+sudo cp /vagrant/cs_v12.toml /etc/scion/cs.toml
 
 echo "VM setup complete."
